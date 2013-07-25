@@ -2,15 +2,37 @@
 - hosts: all
   sudo: yes
   tasks:
-    - name: start ntpd
-      service: name=ntpd state=started
+    - name: disable selinux
+      selinux: state=disabled
 
-    - name: update repositories
-      yum: name=* state=latest
+    - name: install ntpd
+      yum: name=ntp state=present
+
+    - name: start ntpd
+      service: name=ntpd enabled=yes state=started
+
+    # - name: update repositories
+    #   yum: name=* state=latest
 
     - name: update ansible
       yum: name=ansible state=latest
 
+
+- hosts: all
+  user: vagrant
+  tasks:
+    - name: add known_hosts
+      lineinfile: dest=/home/vagrant/.ssh/known_hosts
+                  state=present
+                  create=yes
+                  regexp="^sugardextrose.org"
+                  line="sugardextrose.org,87.98.229.72 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA5qn8LGSe+xZyh/y0g6eSaEQbVDkqW4N9KOqG3OY1AGkyAj7aaLF8zCtLLHoR+pc2iF67JUeNGKITWlKIXJ/1y+ZLG43l6Y2MM5uXlZX1Qf9PPYCygqIYmVdQnWtF8JcRfVrF/6+SUVDKNqss4cSASLA4JnUt5+VDJel83dUUTwSkx5rgwdhgZBQQmqGWMJE7bXWFWFN20ElC5fCFg3r5cRgM1PYXFZbHB5XjXKKS6LmfRJY/5MYmfLx1g+3WFX/wVt9y1pDamTl2/k9Ap04r+4MR/3kIqVbCkzmi5XNX0M1Hd5OL7QuyFXIrizO6L9Fb3pTmmcZLFLIHlRK3xGy4Yw=="
+                  mode=0644
+      tags:
+        - repo
+
     - name: clone xsce-playbooks repository
       git: repo=git@sugardextrose.org:xsce-playbooks
            dest=/home/vagrant/xsce-playbooks
+      tags:
+        - repo
