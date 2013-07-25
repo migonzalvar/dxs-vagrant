@@ -1,11 +1,16 @@
 ---
-- hosts: vagrant
+- hosts: all
   sudo: yes
   tasks:
-    - name: ensure ntpd is at the latest version
-      yum: pkg=ntp state=latest
-      notify:
-      - restart ntpd
-  handlers:
-    - name: restart ntpd
-      service: name=ntpd state=restarted
+    - name: start ntpd
+      service: name=ntpd state=started
+
+    - name: update repositories
+      yum: name=* state=latest
+
+    - name: update ansible
+      yum: name=ansible state=latest
+
+    - name: clone xsce-playbooks repository
+      git: repo=git@sugardextrose.org:xsce-playbooks
+           dest=/home/vagrant/xsce-playbooks
