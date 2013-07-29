@@ -5,11 +5,11 @@
     - name: disable selinux
       selinux: state=disabled
 
-    - name: install ntpd
-      yum: name=ntp state=present
+    - name: install chrony
+      yum: name=chrony state=present
 
-    - name: start ntpd
-      service: name=ntpd enabled=yes state=started
+    - name: start chronyd
+      service: name=chronyd enabled=yes state=started
 
     # - name: update repositories
     #   yum: name=* state=latest
