@@ -1,0 +1,13 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: edit network conf vars
+      command: echo ...
+
+    - name: unexistent folder
+      command: touch /etc/rpm/macros.imgcreate
+
+    - name: add user named
+      user: name=named createhome=no system=yes
+

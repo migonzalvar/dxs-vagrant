@@ -14,9 +14,11 @@
     # - name: update repositories
     #   yum: name=* state=latest
 
+    - name: update git
+      yum: name=git state=latest
+
     - name: update ansible
       yum: name=ansible state=latest
-
 
 - hosts: all
   user: vagrant
