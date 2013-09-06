@@ -14,6 +14,13 @@
     - name: update ansible
       yum: name=ansible state=latest
 
+    - name: use ansible form source code
+      git: repo=https://github.com/ansible/ansible.git
+           dest=/home/vagrant/ansible
+
+    - name: install form ansible source
+      command: python setup.py install chdir=/home/vagrant/ansible
+
 - hosts: all
   user: vagrant
   tasks:
