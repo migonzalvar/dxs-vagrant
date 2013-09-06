@@ -4,9 +4,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "fedora-18-i386"
 
-  #config.vm.box = "opscode_centos-6.4-i386_provisionerless"
-  #config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4-i386_provisionerless.box"
-
   config.vm.network :public_network, :mac => "080027CAFECA"
 
   config.ssh.forward_agent = true
