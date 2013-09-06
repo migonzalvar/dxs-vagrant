@@ -5,15 +5,6 @@
     - name: disable selinux
       selinux: state=disabled
 
-    - name: install chrony
-      yum: name=chrony state=present
-
-    - name: start chronyd
-      service: name=chronyd enabled=yes state=started
-
-    # - name: update repositories
-    #   yum: name=* state=latest
-
     - name: install vim
       yum: name=vim state=present
 
